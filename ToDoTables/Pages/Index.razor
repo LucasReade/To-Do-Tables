@@ -1,0 +1,64 @@
+﻿@page "/"
+
+
+<div class="date-selector">
+    <button @onclick="@(() => UpdateSelectedDate(-1))">Prev</button>
+    <span>@selectedDate.ToLongDateString()</span>
+    <button @onclick="@(() => UpdateSelectedDate(1))">Next</button>
+</div>
+
+<div class="task-columns">
+
+    <div class="Task-column">
+        <p>Quick Ticks</p>
+        <div>
+            @foreach (Tasks task in quickTicks)
+            {
+                <TaskItem Title="@task.Title" Complete="@task.Complete"></TaskItem>
+            }
+        </div>
+        <button @onclick="@(() => AddTask(quickTicks))">+</button>
+    </div>
+
+    <div class="Task-column">
+        <p>Quick Ticks</p>
+        <div>
+            @foreach (Tasks task in tasks)
+            {
+                <TaskItem Title="@task.Title" Complete="@task.Complete"></TaskItem>
+            }
+        </div>
+        <button @onclick="@(() => AddTask(tasks))">+</button>
+    </div>
+
+    <div class="Task-column">
+        <p>Quick Ticks</p>
+        <div>
+            @foreach (Tasks task in projects)
+            {
+                <TaskItem Title="@task.Title" Complete="@task.Complete"></TaskItem>
+            }
+        </div>
+        <button @onclick="@(() => AddTask(projects))">+</button>
+    </div>
+
+</div>
+
+
+@code {
+    private List<Tasks> quickTicks = new List<Tasks>();
+    private List<Tasks> tasks = new List<Tasks>();
+    private List<Tasks> projects = new List<Tasks>();
+
+    private DateTime selectedDate = DateTime.Today;
+
+    private void UpdateSelectedDate(double direction)
+    {
+        selectedDate = selectedDate.AddDays(direction);
+    }
+
+    private void AddTask(List<Tasks> list)
+    {
+        list.Add(new Tasks { Id = new Guid(), Title = "Test", Complete = false, Date = DateTime.Now, TaskType = "" });
+    }
+}

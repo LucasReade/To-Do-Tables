@@ -1,0 +1,13 @@
+﻿<div>
+    <span>@Title</span>
+    <input type="checkbox" checked="@Complete" />
+</div>
+
+@code {
+
+    [Parameter]
+    public string Title { get; set; }
+    [Parameter]
+    public bool Complete { get; set; }
+
+}
